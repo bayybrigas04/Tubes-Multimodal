@@ -1,0 +1,5 @@
+,Recall@1,Recall@5,Recall@10,mAP@10
+gambar->teks-ID,0.2145,0.3745,0.5055,0.2930
+gambar->teks-EN,0.4473,0.7127,0.8327,0.5594
+teks-ID->gambar,0.1964,0.4182,0.5055,0.2830
+teks-EN->gambar,0.3818,0.6727,0.7709,0.5073
