@@ -1,8 +1,10 @@
 # Tubes Multimodal — Kelompok 03 (Titut Encoder)
 
-Proyek akhir **IF25-40304 Pembelajaran Mesin Multimodal**: pencarian lintas modal gambar ↔ teks pada data budaya Indonesia. Dataset yang digunakan adalah bundel mahasiswa SEA-VL Indonesian subset dengan caption bahasa Indonesia dan Inggris. Proyek mengikuti [TOR](Proyek_Akhir_TOR.pdf); encoder pra-latih harus tetap beku, data tambahan di luar bundel tidak digunakan, dan test set privat tidak diakses sebelum dibuka dosen.
+Pencarian lintas modal gambar ↔ teks pada data budaya Indonesia. Dataset yang digunakan adalah bundel mahasiswa SEA-VL Indonesian subset dengan caption bahasa Indonesia dan Inggris. Encoder pra-latih harus tetap beku, data tambahan di luar bundel tidak digunakan, dan test set privat tidak diakses sebelum dibuka dosen.
 
-> **Status dokumentasi:** README ini mencatat pekerjaan yang sudah terlihat pada berkas lokal dan repo, bukan klaim bahwa semua milestone sudah selesai. Kode serta angka M1 yang ada tidak diubah.
+## Dataset
+
+Data berasal dari **SEA-VL Indonesian subset** (`KORIKA-AI/sea-vl_crowdsourcing_id`, diturunkan dari `SEACrowd/sea-vl_crowdsourcing`), lisensi **CC BY-SA 4.0**. Rujukan: Cahyawijaya dkk. (2025), *Crowdsource, Crawl, or Generate? Creating SEA-VL, a Multicultural Vision-Language Dataset for Southeast Asia*, ACL. Kewajiban lisensi dan modifikasi bundel dijelaskan di [`ATTRIBUTION.md`](ATTRIBUTION.md).
 
 ## Progres milestone
 
@@ -14,7 +16,6 @@ Proyek akhir **IF25-40304 Pembelajaran Mesin Multimodal**: pencarian lintas moda
 | **M3 — Kasus sulit dan etika** | Uji kasus sulit, analisis keterbatasan, etika, dan atribusi. | **Belum ditemukan artefak M3 khusus.** Atribusi dataset sudah tersedia di [`ATTRIBUTION.md`](ATTRIBUTION.md). |
 | **M4 — Protokol dan test privat** | Protokol evaluasi serta satu pengajuan prediksi test privat sesuai petunjuk dosen. | **Belum ditemukan artefak M4 atau test privat.** Jangan menebak/merekonstruksi test set yang belum dibuka. |
 
-Status di atas menunjukkan **keberadaan artefak**, bukan bukti pengumpulan atau penilaian dosen.
 
 ## Data dan pembagian kerja
 
@@ -55,7 +56,7 @@ Selisih Recall@1 (Inggris dikurangi Indonesia), dihitung dari output M1 sebelum 
 
 ### Sepuluh contoh query Indonesia → gambar
 
-Sampel berikut mengikuti output notebook lokal. Kolom Top-1 adalah prediksi sistem, bukan gambar pasangan benar. Teks query panjang ditampilkan ringkas; teks lengkap serta Top-2/Top-3 tersedia pada output notebook. **Kegagalan tidak dihapus atau dikoreksi.**
+Sampel berikut mengikuti output notebook lokal. Kolom Top-1 adalah prediksi sistem, bukan gambar pasangan benar. Teks query panjang ditampilkan ringkas; teks lengkap serta Top-2/Top-3 tersedia pada output notebook. 
 
 | No. | Query (ringkas) | Gambar benar | Top-1 | Benar? | Peringkat gambar benar |
 | ---: | --- | --- | --- | :---: | ---: |
@@ -70,24 +71,4 @@ Sampel berikut mengikuti output notebook lokal. Kolom Top-1 adalah prediksi sist
 | 9 | Aneka gorengan dengan sambal dan serundeng | `svl_147525876.jpg` | `svl_144425061.jpg` | Tidak | 49 |
 | 10 | Rempeyek atau peyek kacang | `svl_147525769.jpg` | `svl_144923822.jpg` | Tidak | 80 |
 
-Output skrip melaporkan **12 baris validasi** yang caption Indonesia **atau** Inggrisnya juga ada di train menurut normalisasi skrip. Ini tidak otomatis sama dengan angka **10 caption lintas split** dalam proposal M0 karena cara menghitungnya berbeda. Skrip juga menghitung tabel sensitivitas setelah membuang baris yang terdeteksi; pada tabel itu ukuran **query dan galeri** sama-sama berubah, sehingga jangan menafsirkannya sebagai perubahan yang hanya menghapus query bocor. Kategori yang jarang dan caption yang sama/semantik mirip juga membatasi interpretasi satu-pasangan-benar-per-query.
 
-## Cara menjalankan ulang M1 (opsional; tidak diperlukan untuk membaca hasil di atas)
-
-Gunakan **Python 3.10+**, lingkungan virtual, dan dependensi pada [`requirements.txt`](requirements.txt). Model pra-latih diunduh oleh `sentence-transformers` saat belum ada di cache: diperlukan koneksi internet, ruang penyimpanan, dan waktu komputasi; eksekusi tetap harus memungkinkan pada CPU. Jangan menganggap model sudah tersedia secara lokal.
-
-Contoh dari **PowerShell** di direktori repo (pilih lokasi output baru agar tidak menimpa hasil sebelumnya):
-
-```powershell
-python -m venv .venv
-.\.venv\Scripts\python.exe -m pip install -r requirements.txt
-.\.venv\Scripts\python.exe src\M1_Baseline.py --data 'Q:\Tubes_Multimodal\bundle-mahasiswa\bundle-mahasiswa\bundle-mahasiswa' --out 'results\m1_reproduksi_baru'
-```
-
-Skrip akan menghasilkan `tabel_recall_val.csv`, `tabel_recall_val_tanpa_overlap.csv` bila ada caption beririsan, `language_gap.json`, `contoh_query_id.csv`, dan `cache_val/` di lokasi `--out`. **Perintah di atas adalah panduan, bukan klaim bahwa reproduksi baru telah dijalankan.** Notebook Colab lokal `Q:\Tubes_Multimodal\K03_Notebook.ipynb` juga memuat output M1, tetapi berkas itu belum termasuk dalam repo. Notebook `notebooks/m1_baseline.ipynb` yang ada di repo belum menyimpan output eksekusi.
-
-## Atribusi dan batasan
-
-Data berasal dari **SEA-VL Indonesian subset** (`KORIKA-AI/sea-vl_crowdsourcing_id`, diturunkan dari `SEACrowd/sea-vl_crowdsourcing`), lisensi **CC BY-SA 4.0**. Rujukan: Cahyawijaya dkk. (2025), *Crowdsource, Crawl, or Generate? Creating SEA-VL, a Multicultural Vision-Language Dataset for Southeast Asia*, ACL. Kewajiban lisensi dan modifikasi bundel dijelaskan di [`ATTRIBUTION.md`](ATTRIBUTION.md).
-
-**Catatan dokumentasi:** `ATTRIBUTION.md` menyebut 2.763 sampel yang dipertahankan, sedangkan bundel mahasiswa lokal yang diperiksa berisi **2.347** gambar/baris train+val. Perbedaan ini belum dijelaskan oleh berkas yang ada; gunakan angka split yang benar-benar tersedia saat melaporkan eksperimen, tanpa mengubah atribusi sumber secara diam-diam.
