@@ -2,7 +2,7 @@
 
 **Status:** `src/M2_Encoders.py` baru diperiksa sintaks; **belum** diunduh bobotnya, dijalankan pada data, dilatih, atau dievaluasi. Jangan menafsirkan perkiraan berikut sebagai hasil ukur.
 
-**Pilihan lingkungan terbaru:** Mak menyetujui Colab CPU. Peluncur bertahap ada di [`../notebooks/m2_colab_cpu_launcher.ipynb`](../notebooks/m2_colab_cpu_launcher.ipynb): jalankan E1 val tanpa proyeksi terlebih dahulu, lalu kirim hasil/error sebelum E2 atau latihan proyeksi. Notebook dan skrip masih lokal, bukan di GitHub; upload skrip melalui sel notebook. Preflight lokal menemukan 2.072 train, 275 val, semua gambar tersedia, tetapi laptop hanya punya sekitar 0,75 GB RAM bebas dari total 8 GB; karena itu **tidak ada pemuatan model di laptop**.
+**Pilihan lingkungan terbaru:** Mak menyetujui Colab CPU. Peluncur bertahap ada di [`../notebooks/m2_colab_cpu_launcher.ipynb`](../notebooks/m2_colab_cpu_launcher.ipynb) pada branch `eksperimen-m2`: clone branch tersebut langsung, jalankan E1 val tanpa proyeksi terlebih dahulu, lalu kirim hasil/error sebelum E2 atau latihan proyeksi. Skrip M2 diambil dari branch yang sama; tidak perlu upload skrip lokal. Preflight lokal menemukan 2.072 train, 275 val, semua gambar tersedia, tetapi laptop hanya punya sekitar 0,75 GB RAM bebas dari total 8 GB; karena itu **tidak ada pemuatan model di laptop**.
 
 ## Pilihan checkpoint untuk disetujui bersama
 
