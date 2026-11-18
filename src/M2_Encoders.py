@@ -200,10 +200,29 @@ def build_projector(kind: str, dim: int):
         layer = torch.nn.Linear(dim, dim, bias=False)
         torch.nn.init.eye_(layer.weight)
         return layer
-    layer = torch.nn.Sequential(torch.nn.Linear(dim, 128), torch.nn.ReLU(), torch.nn.Linear(128, dim))
-    torch.nn.init.zeros_(layer[-1].weight)
-    torch.nn.init.zeros_(layer[-1].bias)
-    return layer
+    class ResidualMLP(torch.nn.Module):
+        """Pertahankan embedding input saat cabang MLP masih bernilai nol."""
+
+        def __init__(self) -> None:
+            """Bangun cabang MLP dengan keluaran awal nol."""
+            super().__init__()
+            self.layers = torch.nn.Sequential(
+                torch.nn.Linear(dim, 128), torch.nn.ReLU(), torch.nn.Linear(128, dim)
+            )
+            torch.nn.init.zeros_(self.layers[-1].weight)
+            torch.nn.init.zeros_(self.layers[-1].bias)
+
+        def forward(self, values: torch.Tensor) -> torch.Tensor:
+            """Tambahkan koreksi MLP pada embedding asli.
+
+            Args:
+                values: Embedding beku [N,D].
+            Returns:
+                Embedding awal ditambah koreksi yang dapat dilatih.
+            """
+            return values + self.layers(values)
+
+    return ResidualMLP()
 
 
 def fit_projection(train: dict[str, np.ndarray], kind: str, seed: int, epochs: int, batch_size: int, lr: float):
