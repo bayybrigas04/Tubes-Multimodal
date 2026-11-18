@@ -1,8 +1,5 @@
 # M2 — peluncur eksperimen bertahap
 
-
-**Status hasil:** E1, E2, dan ablasi proyeksi E1 telah dievaluasi pada val; tabel, biaya, dan keterbatasan ada di [M2_Hasil.md](M2_Hasil.md). Lingkungan eksekusi adalah Colab CPU. Notebook peluncur yang digunakan berada di [`../notebooks/m2_nyoba.ipynb`](../notebooks/m2_nyoba.ipynb) pada branch `eksperimen-m2`; setiap varian memiliki folder output tersendiri. Laptop lokal memiliki sekitar 0,75 GB RAM bebas dari total 8 GB saat preflight, sehingga tidak dipakai memuat model.
-
 ## Pilihan checkpoint untuk disetujui bersama
 
 | Kode | Kandidat dan revisi Hugging Face (SHA, bukan tag bergerak) | Lisensi | Bobot utama |
