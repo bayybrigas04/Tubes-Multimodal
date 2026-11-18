@@ -80,6 +80,24 @@ def unit_rows(values: np.ndarray) -> np.ndarray:
     return values / norms
 
 
+def pooled_features(output: object) -> "torch.Tensor":
+    """Ambil embedding [N,D] dari Tensor atau keluaran model SigLIP 2.
+
+    Args:
+        output: Tensor OpenCLIP atau ModelOutput Transformers 5.
+    Returns:
+        Tensor embedding pooled, sebelum normalisasi L2.
+    Raises:
+        ValueError: Pooler tidak tersedia atau bentuk embedding bukan [N,D].
+    """
+    import torch
+
+    features = output if isinstance(output, torch.Tensor) else getattr(output, "pooler_output", None)
+    if not isinstance(features, torch.Tensor) or features.ndim != 2:
+        raise ValueError("Output encoder perlu pooler_output berupa Tensor [N,D]")
+    return features
+
+
 def encode_split(model_code: str, revision: str, table: pd.DataFrame, batch_size: int) -> tuple[dict[str, np.ndarray], int]:
     """Hitung embedding beku untuk satu split menggunakan processor bawaan.
 
@@ -154,7 +172,7 @@ def encode_split(model_code: str, revision: str, table: pd.DataFrame, batch_size
                     output = image_batch(with_images)
                 else:
                     output = text_batch(rows[column].tolist(), LANGUAGES[column])
-            parts.append(output.detach().cpu().float().numpy())
+            parts.append(pooled_features(output).detach().cpu().float().numpy())
         return unit_rows(np.concatenate(parts, axis=0))
 
     embeddings = {"img": collect("image_path"), "ti": collect("caption_id"), "te": collect("caption_en")}
