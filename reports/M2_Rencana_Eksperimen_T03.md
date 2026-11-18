@@ -1,7 +1,6 @@
 # Rancangan M2 — Penyejajaran dan Fusi
 
 **Kelompok 03 (Titut Encoder)** · IF25-40304 Pembelajaran Mesin Multimodal
-**Status:** dokumen ini mencatat rancangan awal M2. Implementasi ada di [`../src/M2_Encoders.py`](../src/M2_Encoders.py); eksperimen val E1, E2, dan ablasi proyeksi sudah dijalankan. Lihat hasil aktual di [M2_Hasil.md](M2_Hasil.md) dan catatan kode di [M2_Panduan_Kode_T03.md](M2_Panduan_Kode_T03.md). Butir rencana di bawah dipertahankan sebagai jejak rancangan, bukan klaim seluruh analisis lanjutan telah selesai.
 
 ## 1. Tujuan dan batasan
 
