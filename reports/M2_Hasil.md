@@ -1,7 +1,6 @@
 # Hasil M2 — pencarian gambar–teks budaya Indonesia
 
 **Kelompok 03 · IF25-40304 Pembelajaran Mesin Multimodal**
-**Status per 19 November 2026:** evaluasi E1 dan E2 tanpa proyeksi serta ablasi E1+proyeksi linear/MLP pada *validation set* sudah dijalankan. Belum ada evaluasi *test* privat. Berkas ini mencatat hasil terukur dan batas auditnya; bukan revisi hasil M1.
 
 ## 1. Tujuan dan protokol
 
@@ -82,7 +81,7 @@ Perbaikan `src/M2_Encoders.py` menambahkan jalur residual MLP sehingga output aw
 
 ## 5. Batas interpretasi dan pekerjaan yang belum dilakukan
 
-- Kesimpulan berlaku untuk 275 pasangan val dan konfigurasi ini; belum ada ulangan lintas seed, interval kepercayaan/paired bootstrap, atau uji signifikansi. Tidak ada dasar untuk mengklaim semua proyeksi selalu menurunkan performa.
+- Kesimpulan berlaku untuk 275 pasangan val dan konfigurasi ini; belum ada ulangan lintas seed, interval kepercayaan/paired bootstrap, atau uji signifikansi.
 - Kueri dianggap hanya memiliki satu pasangan benar berdasarkan baris dataset; caption duplikat/semantik serupa dapat membuat relevansi aktual berbeda. Analisis sensitivitas irisan caption train–val belum dijalankan untuk M2.
 - Belum ada peringkat/galat per kueri yang disimpan untuk audit kegagalan terperinci. *Test set* privat tidak disentuh dan tidak ada klaim generalisasi ke sana.
 - Ketiga folder hasil sukses E1, E2, dan proyeksi sudah tersedia pada `../m2-runs/m2-runs/` secara terpisah. Hasil awal yang gagal tidak digunakan sebagai metrik dan tidak perlu dijalankan ulang.
