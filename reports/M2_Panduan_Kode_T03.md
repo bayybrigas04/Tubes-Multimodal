@@ -1,8 +1,7 @@
 # M2 — peluncur eksperimen bertahap
 
-**Status 18 November 2026:** Mak menjalankan E1 tanpa proyeksi pada val 275 pasangan di Colab CPU. Hasil dan biaya E1 ada di berkas lokal `m2-runs/m2-runs/e1-val-20261118T152523Z/` (belum dimasukkan Git); E2 dan ablasi proyeksi **belum dijalankan**. Jangan menafsirkan perkiraan di bawah sebagai hasil ukur.
 
-**Pilihan lingkungan:** Colab CPU. Peluncur di [`../notebooks/m2_colab_cpu_launcher.ipynb`](../notebooks/m2_colab_cpu_launcher.ipynb) pada branch `eksperimen-m2` mengambil skrip dari branch yang sama tanpa upload lokal. Setelah E1 diperiksa, jalankan **sel E2 saja**; pada runtime baru jalankan sel setup lalu lewati sel E1 agar tidak mengulanginya. E2 menulis folder output baru dan log tersendiri; setelah E2 kirim hasil/error sebelum melatih proyeksi. Laptop lokal memiliki sekitar 0,75 GB RAM bebas dari total 8 GB saat preflight, sehingga tidak dipakai memuat model.
+**Status hasil:** E1, E2, dan ablasi proyeksi E1 telah dievaluasi pada val; tabel, biaya, dan keterbatasan ada di [M2_Hasil.md](M2_Hasil.md). Lingkungan eksekusi adalah Colab CPU. Notebook peluncur yang digunakan berada di [`../notebooks/m2_nyoba.ipynb`](../notebooks/m2_nyoba.ipynb) pada branch `eksperimen-m2`; setiap varian memiliki folder output tersendiri. Laptop lokal memiliki sekitar 0,75 GB RAM bebas dari total 8 GB saat preflight, sehingga tidak dipakai memuat model.
 
 ## Pilihan checkpoint untuk disetujui bersama
 
@@ -12,12 +11,6 @@
 | E2 | [`visheratin/nllb-clip-base-siglip`](https://huggingface.co/visheratin/nllb-clip-base-siglip), `a7c4a9bf24872c73a2c059ab2f9e9123a4d4144e` | CC BY-NC 4.0 | 2.030.040.226 byte |
 
 Metadata diakses 18 November 2026 dari endpoint API Hugging Face. Total berkas bobot utama sekitar 3,53 GB desimal; tokenizer, cache, paket, dan kemungkinan dependensi `facebook/nllb-200-distilled-600M` OpenCLIP dapat menambah unduhan/penyimpanan. **E2 melarang pemakaian komersial sesuai lisensinya**; pastikan penggunaan kelompok nonkomersial. E2 memakai pengaturan bahasa `ind_Latn` dan `eng_Latn` via tokenizer OpenCLIP. Kode mengambil snapshot E2 pada SHA dan memuatnya lewat `local-dir:`; beberapa dependensi internal model NLLB masih bisa diambil terpisah oleh library, sehingga pin penuh transitive dependency belum dibuktikan tanpa smoke test.
-
-## Perkiraan biaya CPU (bukan pengukuran)
-
-Laptop lokal terdeteksi Intel Core i5-12450H, 8 core/12 logical processor. Tanpa benchmark pada mesin, rentang kerja awal yang **sengaja longgar** untuk embedding E1 train+val dan E2 val adalah **beberapa jam hingga >1 hari**; memori sebaiknya tersedia **≥8 GB**, lebih nyaman **16 GB**, dan ruang kosong **≥10 GB** untuk bobot, cache, paket, dan overhead. E2 memakai gambar 384×384 dan teks NLLB; lazimnya lebih berat daripada E1 224×224. Latihan proyektor di embedding kecil biasanya lebih murah daripada embedding encoder, tetapi **belum ada angka menit yang dapat dipertanggungjawabkan**. Unduhan 3,53 GB saja membutuhkan ~47 menit pada koneksi stabil 10 Mbps (tanpa overhead/berkas tambahan); pada 50 Mbps ~9,4 menit. Ini hitungan ukuran/kecepatan teoritis, bukan estimasi durasi run keseluruhan. Pemakaian laptop lokal tidak menimbulkan biaya cloud tambahan, tetapi memerlukan waktu, listrik, bandwidth; jangan menyamakan dengan biaya CPU Colab/VM yang belum dipilih.
-
-Sebelum eksekusi: pilih tempat run (laptop/Colab), cek RAM dan disk, sepakati maksimum waktu/bandwidth, serta tentukan `epochs`, `lr`, `batch-size`, seed. Contoh **usulan, belum dikunci**: 5 epoch, learning rate `0.001`, batch 8, seed 42; pengaturan sama untuk proyektor linear dan MLP. Untuk klaim efek proyeksi yang kuat, pemilihan hyperparameter/epoch seharusnya memakai train-internal holdout, bukan berulang kali memilih nilai terbaik di val. Kode saat ini hanya satu konfigurasi eksplisit; tidak mengotomatiskan pencarian hyperparameter.
 
 ## Yang disiapkan
 
@@ -31,12 +24,9 @@ Sebelum eksekusi: pilih tempat run (laptop/Colab), cek RAM dan disk, sepakati ma
 
 Sediakan lingkungan Python yang kompatibel dengan PyTorch, Transformers (mendukung SigLIP 2), torchvision, dan OpenCLIP. Gunakan **pip pada lingkungan virtual terpisah** yang disiapkan untuk proyek, jangan instalasi global. Paket dasar M1 sudah dicantumkan di `requirements.txt`; tambahan untuk E2 adalah `open_clip_torch` (beserta `timm`, `huggingface_hub` dan dependensi transitifnya). Unduhan terbesar umumnya bobot model (>3,5 GB), bukan skrip; Torch/torchvision sendiri juga dapat memerlukan ratusan MB atau lebih. Tidak ada paket diinstal pada sesi penulisan ini. Verifikasi versi bersama nanti, karena antarmuka OpenCLIP/Transformers dapat berubah.
 
-**Perintah di bawah hanya contoh pemakaian setelah ACC, JANGAN dijalankan sekarang:**
 
 ```powershell
 # Jalankan dari root repo dengan venv yang sudah dipersiapkan, setelah ACC Mak.
 python -m pip install -r requirements.txt open_clip_torch torchvision
 python src/M2_Encoders.py --data "Q:\Tubes_Multimodal\bundle-mahasiswa\bundle-mahasiswa\bundle-mahasiswa" --out results/m2-run-pertama --baseline results/m1/tabel_recall_val.csv --e1-revision 75de2d55ec2d0b4efc50b3e9ad70dba96a7b2fa2 --e2-revision a7c4a9bf24872c73a2c059ab2f9e9123a4d4144e --epochs 5 --lr 0.001 --batch-size 8 --seed 42
 ```
-
-**Gate sebelum klaim hasil:** smoke test API kedua checkpoint, cek dimensi serta RAM/disk, audit pelatihan proyektor, jalankan evaluasi val sekali sesuai protokol, periksa baseline/peringkat. Semua ini **belum dilaksanakan**.

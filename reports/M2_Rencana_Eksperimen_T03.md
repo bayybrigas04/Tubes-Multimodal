@@ -1,7 +1,7 @@
 # Rancangan M2 — Penyejajaran dan Fusi
 
 **Kelompok 03 (Titut Encoder)** · IF25-40304 Pembelajaran Mesin Multimodal
-**Status:** kode awal tersedia di [`../src/M2_Encoders.py`](../src/M2_Encoders.py), **belum dijalankan**; checkpoint dan anggaran CPU masih menunggu persetujuan Mak. Rincian kandidat dan batas kode ada di [`M2_Panduan_Kode_T03.md`](M2_Panduan_Kode_T03.md). Tidak ada hasil M2 pada dokumen ini.
+**Status:** dokumen ini mencatat rancangan awal M2. Implementasi ada di [`../src/M2_Encoders.py`](../src/M2_Encoders.py); eksperimen val E1, E2, dan ablasi proyeksi sudah dijalankan. Lihat hasil aktual di [M2_Hasil.md](M2_Hasil.md) dan catatan kode di [M2_Panduan_Kode_T03.md](M2_Panduan_Kode_T03.md). Butir rencana di bawah dipertahankan sebagai jejak rancangan, bukan klaim seluruh analisis lanjutan telah selesai.
 
 ## 1. Tujuan dan batasan
 
@@ -30,14 +30,6 @@ Semua baris adalah **rencana**. Tentukan ID model, revisi bobot, lisensi, arsite
 | **E1+P-M** | Encoder **sama persis** dengan E1 | Proyeksi MLP kecil | Varian proyeksi kedua: E1+P-M dibanding E1 dan E1+P-L. |
 
 **Keputusan implementasi yang harus dikunci sebelum eksekusi:** checkpoint SigLIP 2 Base dan NLLB-CLIP-SigLIP yang tepat; apakah ruang embedding image–text tiap kandidat sudah kompatibel tanpa adapter; dimensi proyeksi, fungsi loss kontrastif, jumlah epoch, batch size, learning rate, dan seed. Tidak ada angka/konfigurasi yang boleh diklaim sebagai hasil hanya dari rancangan ini. Jika salah satu kandidat tidak memenuhi batas CPU/kompatibilitas/akses bobot, diskusikan perubahan dengan kelompok dan revisi proposal/protokol secara eksplisit sebelum mengganti varian.
-
-Efek yang dapat diatribusikan dengan matriks ini:
-
-1. **Pendekatan utama (a):** `E1 − B0` dan `E2 − B0` pada empat arah retrieval.
-2. **Tambahan pendekatan (c):** `E1+P-L − E1` dan `E1+P-M − E1`. Jangan mengklaim efek proyeksi pada E2 karena `E2+P` tidak diuji.
-3. **Perbedaan bentuk proyeksi:** `E1+P-M − E1+P-L`, dengan kondisi pelatihan/evaluasi setara.
-
-Jika sumber daya CPU tidak cukup untuk seluruh kombinasi, selesaikan dahulu B0, E1, dan E2 sebagai minimum M2 pendekatan utama, lalu laporkan kombinasi proyeksi hanya jika benar-benar diuji. Jangan menyebut proyeksi sudah meningkatkan hasil sebelum ada run valid.
 
 ## 4. Urutan implementasi yang direncanakan (belum dieksekusi)
 

@@ -1,0 +1,23 @@
+{
+  "models": {
+    "E1": "google/siglip2-base-patch16-224",
+    "E2": "visheratin/nllb-clip-base-siglip"
+  },
+  "revisions": {
+    "E1": "75de2d55ec2d0b4efc50b3e9ad70dba96a7b2fa2",
+    "E2": "a7c4a9bf24872c73a2c059ab2f9e9123a4d4144e"
+  },
+  "completed_models": [
+    "E1",
+    "E1+P-L",
+    "E1+P-M"
+  ],
+  "seed": 42,
+  "epochs": 5,
+  "lr": 0.001,
+  "batch_size": 4,
+  "cpu": 2,
+  "train_rows": 2072,
+  "train_unique_rows": 2021,
+  "val_rows": 275
+}

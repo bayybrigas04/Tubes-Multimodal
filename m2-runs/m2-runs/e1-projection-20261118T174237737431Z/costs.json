@@ -1,0 +1,24 @@
+[
+  {
+    "varian": "E1",
+    "embedding_val_s": 433.8070450089999,
+    "frozen_parameters": 375187970,
+    "trained_parameters": 0
+  },
+  {
+    "varian": "E1+P-L",
+    "embedding_val_s": 433.8070450089999,
+    "embedding_train_s": 3163.2712181379993,
+    "training_s": 36.48398289399847,
+    "frozen_parameters": 375187970,
+    "trained_parameters": 589824
+  },
+  {
+    "varian": "E1+P-M",
+    "embedding_val_s": 433.8070450089999,
+    "embedding_train_s": 3163.2712181379993,
+    "training_s": 22.812871885000277,
+    "frozen_parameters": 375187970,
+    "trained_parameters": 197504
+  }
+]
