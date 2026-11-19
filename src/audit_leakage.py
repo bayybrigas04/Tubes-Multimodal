@@ -7,7 +7,7 @@ Pemeriksaan
   C. gambar near-duplicate: dHash/pHash + cosine embedding gambar CLIP
   D. ID gambar bersebelahan (bukti tambahan, bukan kriteria penyaring)
 
-Keluaran (default: <Tubes>/results/m2_audit/)
+Keluaran (default: <repo>/results/m2_audit/)
   leakage_filter.csv          satu baris per gambar: status, alasan, keluarkan_dari_train, val_bocor
   caption_group.csv           caption_group_id (caption sama = grup sama) untuk mask batch
   dev_split.csv               fold dev dari train (grouped) agar pemilihan konfigurasi tidak memakai val
@@ -18,9 +18,9 @@ Keluaran (default: <Tubes>/results/m2_audit/)
 Hanya CPU. Tidak ada pelatihan. Val tidak diubah; hanya ditandai.
 
 Contoh
-  python M2/audit_leakage.py
-  python M2/audit_leakage.py --skip-embedding          # tanpa model (hanya TF-IDF dan hash)
-  python M2/audit_leakage.py --tfidf-tinjau 0.80 --img-cos-tinjau 0.93
+  python src/audit_leakage.py
+  python src/audit_leakage.py --skip-embedding          # tanpa model (hanya TF-IDF dan hash)
+  python src/audit_leakage.py --tfidf-tinjau 0.80 --img-cos-tinjau 0.93
 """
 import argparse
 import os
@@ -173,7 +173,8 @@ def kelompok_dari_kunci(keys_list, n):
 
 def main():
     ap = argparse.ArgumentParser(description="Audit leakage M2 (tahap 1).")
-    ap.add_argument("--data", default=str(ROOT / "bundle-mahasiswa" / "bundle-mahasiswa"))
+    ap.add_argument("--data", default=str(ROOT / "data"),
+                    help="Folder yang LANGSUNG berisi train.csv, val.csv, dan images/ (default: <repo>/data).")
     ap.add_argument("--out", default=str(ROOT / "results" / "m2_audit"))
     ap.add_argument("--skip-embedding", action="store_true",
                     help="Lewati model neural: hanya TF-IDF dan hash gambar.")
@@ -193,6 +194,9 @@ def main():
     pakai_model = not args.skip_embedding
     data = Path(args.data).expanduser().resolve()
     out = Path(args.out).expanduser().resolve()
+    if not (data / "train.csv").is_file() or not (data / "val.csv").is_file():
+        raise SystemExit(f"train.csv/val.csv tidak ditemukan di {data}. "
+                         "Salin isi bundle-mahasiswa ke folder data/ atau pakai --data <folder>.")
     cache = out / "cache"
     out.mkdir(parents=True, exist_ok=True)
     np.random.seed(SEED)

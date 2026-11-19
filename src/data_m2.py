@@ -3,8 +3,8 @@ Pemuat data M2 yang sudah memakai hasil audit leakage (peran 1).
 
 File dataset asli TIDAK diubah. Baris "pasti bocor" hanya disaring saat dimuat.
 
-Pemakaian (dari folder Tubes):
-    from M2.data_m2 import muat_data
+Pemakaian (dari akar repo):
+    from src.data_m2 import muat_data
     d = muat_data()
     d["train"]      # train tanpa 21 baris pasti bocor  -> untuk melatih
     d["val"]        # val penuh 275 baris               -> angka utama, sebanding M1
@@ -21,7 +21,7 @@ from pathlib import Path
 import pandas as pd
 
 ROOT = Path(__file__).resolve().parent.parent
-DATA = ROOT / "bundle-mahasiswa" / "bundle-mahasiswa"
+DATA = ROOT / "data"  # folder yang langsung berisi train.csv, val.csv, images/
 AUDIT = ROOT / "results" / "m2_audit"
 
 
@@ -32,6 +32,11 @@ def bersihkan(s):
 
 def muat_data(data_dir=DATA, audit_dir=AUDIT):
     data_dir, audit_dir = Path(data_dir), Path(audit_dir)
+    if not (data_dir / "train.csv").is_file():
+        raise FileNotFoundError(f"train.csv tidak ditemukan di {data_dir}. "
+                                "Salin bundle-mahasiswa ke data/ atau berikan muat_data(data_dir=...).")
+    if not (audit_dir / "leakage_filter.csv").is_file():
+        raise FileNotFoundError(f"Hasil audit tidak ditemukan di {audit_dir}. Jalankan git pull atau src/audit_leakage.py.")
     train = pd.read_csv(data_dir / "train.csv")
     val = pd.read_csv(data_dir / "val.csv")
     filt = pd.read_csv(audit_dir / "leakage_filter.csv")
@@ -61,7 +66,8 @@ def muat_data(data_dir=DATA, audit_dir=AUDIT):
 
 
 if __name__ == "__main__":
-    d = muat_data()
+    import sys
+    d = muat_data(*sys.argv[1:2])
     print(f"train asli 2072 -> train bersih {len(d['train'])} (dibuang {len(d['dibuang_dari_train'])})")
     print(f"val penuh {len(d['val'])} | val bersih {int(d['val_bersih'].sum())}")
     print("fold dev:", d["train"]["fold"].value_counts().sort_index().to_dict())
