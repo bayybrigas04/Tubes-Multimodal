@@ -1,0 +1,17 @@
+Encoder,Evaluasi,Arah,Perbandingan,Δ R@1,CI 2.5%,CI 97.5%,CI mencakup 0?
+Baseline M1,val penuh,teks-ID->gambar,filter caption (peran 3) vs tanpa filter,-0.0091,-0.0207,0.0025,Ya (tidak ada efek terbukti)
+Baseline M1,val penuh,teks-ID->gambar,filter audit (peran 1) vs tanpa filter,-0.0036,-0.0145,0.0069,Ya (tidak ada efek terbukti)
+Baseline M1,val penuh,gambar->teks-ID,filter caption (peran 3) vs tanpa filter,-0.012,-0.0236,-0.0011,TIDAK
+Baseline M1,val penuh,gambar->teks-ID,filter audit (peran 1) vs tanpa filter,-0.016,-0.0284,-0.0036,TIDAK
+Baseline M1,val bersih,teks-ID->gambar,filter caption (peran 3) vs tanpa filter,-0.0027,-0.013,0.0084,Ya (tidak ada efek terbukti)
+Baseline M1,val bersih,teks-ID->gambar,filter audit (peran 1) vs tanpa filter,0.0034,-0.0069,0.0141,Ya (tidak ada efek terbukti)
+Baseline M1,val bersih,gambar->teks-ID,filter caption (peran 3) vs tanpa filter,-0.0053,-0.0149,0.0042,Ya (tidak ada efek terbukti)
+Baseline M1,val bersih,gambar->teks-ID,filter audit (peran 1) vs tanpa filter,-0.0061,-0.0172,0.0053,Ya (tidak ada efek terbukti)
+SigLIP 2 Base,val penuh,teks-ID->gambar,filter caption (peran 3) vs tanpa filter,0.0055,-0.0069,0.0175,Ya (tidak ada efek terbukti)
+SigLIP 2 Base,val penuh,teks-ID->gambar,filter audit (peran 1) vs tanpa filter,-0.0018,-0.0127,0.0087,Ya (tidak ada efek terbukti)
+SigLIP 2 Base,val penuh,gambar->teks-ID,filter caption (peran 3) vs tanpa filter,-0.0189,-0.0345,-0.0044,TIDAK
+SigLIP 2 Base,val penuh,gambar->teks-ID,filter audit (peran 1) vs tanpa filter,-0.0295,-0.0458,-0.0153,TIDAK
+SigLIP 2 Base,val bersih,teks-ID->gambar,filter caption (peran 3) vs tanpa filter,0.0069,-0.005,0.0187,Ya (tidak ada efek terbukti)
+SigLIP 2 Base,val bersih,teks-ID->gambar,filter audit (peran 1) vs tanpa filter,-0.0019,-0.0126,0.0088,Ya (tidak ada efek terbukti)
+SigLIP 2 Base,val bersih,gambar->teks-ID,filter caption (peran 3) vs tanpa filter,-0.0031,-0.0137,0.0076,Ya (tidak ada efek terbukti)
+SigLIP 2 Base,val bersih,gambar->teks-ID,filter audit (peran 1) vs tanpa filter,-0.013,-0.0237,-0.0027,TIDAK

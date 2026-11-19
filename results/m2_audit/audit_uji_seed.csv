@@ -1,0 +1,17 @@
+Encoder,Evaluasi,Arah,Perbandingan,Δ R@1 (rata-rata seed),CI 2.5%,CI 97.5%,p,std antar seed (tanpa filter),Kesimpulan
+Baseline M1,val penuh,teks-ID->gambar,filter caption (peran 3) vs tanpa filter,-0.0091,-0.0227,0.0045,0.1765,0.013,tidak ada efek terbukti
+Baseline M1,val penuh,teks-ID->gambar,filter audit (peran 1) vs tanpa filter,-0.0036,-0.0157,0.0084,0.534,0.013,tidak ada efek terbukti
+Baseline M1,val penuh,gambar->teks-ID,filter caption (peran 3) vs tanpa filter,-0.012,-0.0286,0.0046,0.1457,0.0139,tidak ada efek terbukti
+Baseline M1,val penuh,gambar->teks-ID,filter audit (peran 1) vs tanpa filter,-0.016,-0.0308,-0.0012,0.0359,0.0139,ADA EFEK
+Baseline M1,val bersih,teks-ID->gambar,filter caption (peran 3) vs tanpa filter,-0.0027,-0.0176,0.0122,0.7099,0.0138,tidak ada efek terbukti
+Baseline M1,val bersih,teks-ID->gambar,filter audit (peran 1) vs tanpa filter,0.0034,-0.0084,0.0153,0.5484,0.0138,tidak ada efek terbukti
+Baseline M1,val bersih,gambar->teks-ID,filter caption (peran 3) vs tanpa filter,-0.0053,-0.0221,0.0114,0.5084,0.0148,tidak ada efek terbukti
+Baseline M1,val bersih,gambar->teks-ID,filter audit (peran 1) vs tanpa filter,-0.0061,-0.0217,0.0095,0.4197,0.0148,tidak ada efek terbukti
+SigLIP 2 Base,val penuh,teks-ID->gambar,filter caption (peran 3) vs tanpa filter,0.0055,-0.0021,0.0131,0.1478,0.0092,tidak ada efek terbukti
+SigLIP 2 Base,val penuh,teks-ID->gambar,filter audit (peran 1) vs tanpa filter,-0.0018,-0.0105,0.0068,0.6645,0.0092,tidak ada efek terbukti
+SigLIP 2 Base,val penuh,gambar->teks-ID,filter caption (peran 3) vs tanpa filter,-0.0189,-0.0321,-0.0058,0.0076,0.016,ADA EFEK
+SigLIP 2 Base,val penuh,gambar->teks-ID,filter audit (peran 1) vs tanpa filter,-0.0295,-0.0415,-0.0174,0.0002,0.016,ADA EFEK
+SigLIP 2 Base,val bersih,teks-ID->gambar,filter caption (peran 3) vs tanpa filter,0.0069,-0.0007,0.0144,0.0716,0.0094,tidak ada efek terbukti
+SigLIP 2 Base,val bersih,teks-ID->gambar,filter audit (peran 1) vs tanpa filter,-0.0019,-0.011,0.0072,0.6639,0.0094,tidak ada efek terbukti
+SigLIP 2 Base,val bersih,gambar->teks-ID,filter caption (peran 3) vs tanpa filter,-0.0031,-0.0146,0.0085,0.5845,0.0132,tidak ada efek terbukti
+SigLIP 2 Base,val bersih,gambar->teks-ID,filter audit (peran 1) vs tanpa filter,-0.013,-0.0234,-0.0025,0.0183,0.0132,ADA EFEK
