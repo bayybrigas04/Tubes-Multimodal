@@ -1,0 +1,41 @@
+case_id,group,image_id,focus,test_type,candidate_label,candidate_text,cosine_score,probabilitas_relatif,temperature,lolos
+A1,A,svl_142112996,negasi,hard,sesuai,Tiang bendera tanpa bendera.,0.3090284466743469,0.5795544449855073,0.07,True
+A1,A,svl_142112996,negasi,hard,pengecoh,Tiang bendera dengan bendera.,0.28656232357025146,0.42044555501449277,0.07,True
+A1,A,svl_142112996,negasi,control,sesuai,Foto tiang bendera.,0.29925745725631714,0.8085384834824241,0.07,True
+A1,A,svl_142112996,negasi,control,pengecoh,Foto menara candi.,0.19841955602169037,0.1914615165175759,0.07,True
+A2,A,svl_140084661,pose,hard,sesuai,Tiga penari berbaju kuning duduk.,0.32150447368621826,0.6123873189941377,0.07,True
+A2,A,svl_140084661,pose,hard,pengecoh,Tiga penari berbaju kuning berdiri.,0.28948938846588135,0.3876126810058623,0.07,True
+A2,A,svl_140084661,pose,control,sesuai,Foto para penari.,0.19656822085380554,0.8617250156701378,0.07,True
+A2,A,svl_140084661,pose,control,pengecoh,Foto stupa candi.,0.06848978996276855,0.13827498432986216,0.07,True
+A3,A,svl_140084668,warna,hard,sesuai,Penari berbaju putih berdiri.,0.23010960221290588,0.6270104885519763,0.07,True
+A3,A,svl_140084668,warna,hard,pengecoh,Penari berbaju kuning berdiri.,0.19375069439411163,0.37298951144802384,0.07,True
+A3,A,svl_140084668,warna,control,sesuai,Foto para penari.,0.19621916115283966,0.9731406972756903,0.07,True
+A3,A,svl_140084668,warna,control,pengecoh,Foto stupa candi.,-0.055074989795684814,0.026859302724309746,0.07,True
+A4,A,svl_141004074,spasial,hard,sesuai,"Pedang di kiri foto, perisai di kanan foto.",0.08433213084936142,0.5275901307089369,0.07,True
+A4,A,svl_141004074,spasial,hard,pengecoh,"Pedang di kanan foto, perisai di kiri foto.",0.07659903913736343,0.4724098692910632,0.07,True
+A4,A,svl_141004074,spasial,control,sesuai,Foto para penari.,0.1987575739622116,0.9300634594897357,0.07,True
+A4,A,svl_141004074,spasial,control,pengecoh,Foto stupa candi.,0.017621055245399475,0.06993654051026431,0.07,True
+A5,A,svl_140084373,benda-budaya,hard,sesuai,Kemeja batik di atas meja.,0.3389202952384949,0.7411884677884016,0.07,True
+A5,A,svl_140084373,benda-budaya,hard,pengecoh,Taplak batik menutupi meja.,0.2652694582939148,0.25881153221159825,0.07,True
+A5,A,svl_140084373,benda-budaya,control,sesuai,Foto kemeja batik.,0.3676239848136902,0.9898040331317294,0.07,True
+A5,A,svl_140084373,benda-budaya,control,pengecoh,Foto menara candi.,0.04733795300126076,0.010195966868270689,0.07,True
+B1,B,svl_140084155,alat-makan,hard,sesuai,Bakmi di piring dengan sumpit hitam.,0.35179808735847473,0.6202729065089428,0.07,True
+B1,B,svl_140084155,alat-makan,hard,pengecoh,Bakmi di piring dengan sendok hijau.,0.31744861602783203,0.37972709349105704,0.07,True
+B1,B,svl_140084155,alat-makan,control,sesuai,Foto sepiring bakmi.,0.32623493671417236,0.9878640103418799,0.07,True
+B1,B,svl_140084155,alat-makan,control,pengecoh,Foto stupa candi.,0.0182790607213974,0.01213598965812003,0.07,True
+B2,B,svl_140084156,alat-makan,hard,sesuai,Bakmi di piring dengan sendok hijau.,0.2696804106235504,0.5801057360889001,0.07,True
+B2,B,svl_140084156,alat-makan,hard,pengecoh,Bakmi di piring dengan sumpit hitam.,0.24705588817596436,0.4198942639110998,0.07,True
+B2,B,svl_140084156,alat-makan,control,sesuai,Foto sepiring bakmi.,0.2725382149219513,0.9691391556909573,0.07,True
+B2,B,svl_140084156,alat-makan,control,pengecoh,Foto stupa candi.,0.031253814697265625,0.03086084430904264,0.07,True
+B3,B,svl_140084408,benda-tarian,hard,sesuai,Tiga penari mengangkat selendang jingga.,0.3661976158618927,0.6049820846084611,0.07,True
+B3,B,svl_140084408,benda-tarian,hard,pengecoh,Tiga penari mengangkat payung jingga.,0.3363588750362396,0.39501791539153885,0.07,True
+B3,B,svl_140084408,benda-tarian,control,sesuai,Foto para penari.,0.16360828280448914,0.9036787821457254,0.07,True
+B3,B,svl_140084408,benda-tarian,control,pengecoh,Foto stupa candi.,0.006893308833241463,0.09632121785427451,0.07,True
+B4,B,svl_143496795,arsitektur-budaya,hard,sesuai,Stupa Borobudur berbentuk lonceng.,0.39992350339889526,0.8368574054437239,0.07,True
+B4,B,svl_143496795,arsitektur-budaya,hard,pengecoh,Menara Prambanan berujung runcing.,0.28547146916389465,0.16314259455627617,0.07,True
+B4,B,svl_143496795,arsitektur-budaya,control,sesuai,Foto stupa candi.,0.3171541690826416,0.9827199261708929,0.07,True
+B4,B,svl_143496795,arsitektur-budaya,control,pengecoh,Foto para penari.,0.03430026024580002,0.0172800738291071,0.07,True
+B5,B,svl_144425377,arsitektur-budaya,hard,sesuai,Menara Prambanan berujung runcing.,0.40288472175598145,0.6546372354426118,0.07,True
+B5,B,svl_144425377,arsitektur-budaya,hard,pengecoh,Stupa Borobudur berbentuk lonceng.,0.35812070965766907,0.3453627645573882,0.07,True
+B5,B,svl_144425377,arsitektur-budaya,control,sesuai,Foto menara candi.,0.357970267534256,0.9969129755471527,0.07,True
+B5,B,svl_144425377,arsitektur-budaya,control,pengecoh,Foto sepiring bakmi.,-0.046451639384031296,0.0030870244528473393,0.07,True

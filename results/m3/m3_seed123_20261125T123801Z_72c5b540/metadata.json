@@ -1,0 +1,200 @@
+{
+  "model": "SigLIP 2 Base + ProyeksiResidual",
+  "encoder_id": "ViT-B-16-SigLIP2-256",
+  "encoder_pretrained": "webli",
+  "seed": 123,
+  "checkpoint_path": "/content/drive/MyDrive/Dataset-Tubes-Multimodal/results/m2/e1p_rerun_20261120T134751Z_61ea1f37/projection_best_seed_123.pt",
+  "checkpoint_sha256": "c2039d40baf82bb6701f44159f417b3a8bc41a86c2a5849e3d6c5c9a2d34c300",
+  "val_csv_sha256": "dd3d312f3658e3446954c150fcc4c891da05d574fb51b631d00b31f7da216ebe",
+  "split": "val",
+  "temperature": 0.07,
+  "probability_definition": "softmax atas tepat dua kandidat teks per gambar, tidak terkalibrasi",
+  "tie_rule": "skor seri = gagal",
+  "normalization": "cosine(image, projection(L2(text)))",
+  "open_clip_torch_version": "4.2.2",
+  "torch_version": "2.14.1+cu130",
+  "case_images": {
+    "A1": {
+      "image_id": "svl_142112996",
+      "sha256": "73649ceb7a257a090eae429373d16c02d9591e7fa44e55ed45b5bf0003c7ac70"
+    },
+    "A2": {
+      "image_id": "svl_140084661",
+      "sha256": "260383cc970c30842cdc0f6c6e62ba1fb074c9b29eaf5e30522e4167eed357f7"
+    },
+    "A3": {
+      "image_id": "svl_140084668",
+      "sha256": "b13909583d13dee8de40a7c6f6c8b6bbc16e0f33062811b83d72c468e12098ba"
+    },
+    "A4": {
+      "image_id": "svl_141004074",
+      "sha256": "90b159a2e7bce8b7c52c27b56f468b60a5b388830fe0bafd30c2993a3c15cda3"
+    },
+    "A5": {
+      "image_id": "svl_140084373",
+      "sha256": "2248703acc14cbe495e3aa2f3d129d4a01ee2bc332d6d27afeca2ce4c17ab9c1"
+    },
+    "B1": {
+      "image_id": "svl_140084155",
+      "sha256": "35614a5be87e7c4218d20f9a1f801fa50d1cbaef082893049e52276b49c27826"
+    },
+    "B2": {
+      "image_id": "svl_140084156",
+      "sha256": "ca899c03e79bfd81b0c3e7d3504dff54f6acbd6c788c530c0aa38b3d9278ad48"
+    },
+    "B3": {
+      "image_id": "svl_140084408",
+      "sha256": "7216dd42dedb2c980dcae463e760c81b486fa553831c4252e0d7d1c75a82b066"
+    },
+    "B4": {
+      "image_id": "svl_143496795",
+      "sha256": "dcbe563935bf83c10c21705d00ee3b1743365f0bbbde4bf07b6e8aad491cfac5"
+    },
+    "B5": {
+      "image_id": "svl_144425377",
+      "sha256": "9b0f262ba57a0089489f45509c6fd11aaf852ff4ef30a9edf8ea66510ea77db6"
+    }
+  },
+  "cases": [
+    {
+      "case_id": "A1",
+      "group": "A",
+      "image_id": "svl_142112996",
+      "focus": "negasi",
+      "hard": [
+        "Tiang bendera tanpa bendera.",
+        "Tiang bendera dengan bendera."
+      ],
+      "control": [
+        "Foto tiang bendera.",
+        "Foto menara candi."
+      ]
+    },
+    {
+      "case_id": "A2",
+      "group": "A",
+      "image_id": "svl_140084661",
+      "focus": "pose",
+      "hard": [
+        "Tiga penari berbaju kuning duduk.",
+        "Tiga penari berbaju kuning berdiri."
+      ],
+      "control": [
+        "Foto para penari.",
+        "Foto stupa candi."
+      ]
+    },
+    {
+      "case_id": "A3",
+      "group": "A",
+      "image_id": "svl_140084668",
+      "focus": "warna",
+      "hard": [
+        "Penari berbaju putih berdiri.",
+        "Penari berbaju kuning berdiri."
+      ],
+      "control": [
+        "Foto para penari.",
+        "Foto stupa candi."
+      ]
+    },
+    {
+      "case_id": "A4",
+      "group": "A",
+      "image_id": "svl_141004074",
+      "focus": "spasial",
+      "hard": [
+        "Pedang di kiri foto, perisai di kanan foto.",
+        "Pedang di kanan foto, perisai di kiri foto."
+      ],
+      "control": [
+        "Foto para penari.",
+        "Foto stupa candi."
+      ]
+    },
+    {
+      "case_id": "A5",
+      "group": "A",
+      "image_id": "svl_140084373",
+      "focus": "benda-budaya",
+      "hard": [
+        "Kemeja batik di atas meja.",
+        "Taplak batik menutupi meja."
+      ],
+      "control": [
+        "Foto kemeja batik.",
+        "Foto menara candi."
+      ]
+    },
+    {
+      "case_id": "B1",
+      "group": "B",
+      "image_id": "svl_140084155",
+      "focus": "alat-makan",
+      "hard": [
+        "Bakmi di piring dengan sumpit hitam.",
+        "Bakmi di piring dengan sendok hijau."
+      ],
+      "control": [
+        "Foto sepiring bakmi.",
+        "Foto stupa candi."
+      ]
+    },
+    {
+      "case_id": "B2",
+      "group": "B",
+      "image_id": "svl_140084156",
+      "focus": "alat-makan",
+      "hard": [
+        "Bakmi di piring dengan sendok hijau.",
+        "Bakmi di piring dengan sumpit hitam."
+      ],
+      "control": [
+        "Foto sepiring bakmi.",
+        "Foto stupa candi."
+      ]
+    },
+    {
+      "case_id": "B3",
+      "group": "B",
+      "image_id": "svl_140084408",
+      "focus": "benda-tarian",
+      "hard": [
+        "Tiga penari mengangkat selendang jingga.",
+        "Tiga penari mengangkat payung jingga."
+      ],
+      "control": [
+        "Foto para penari.",
+        "Foto stupa candi."
+      ]
+    },
+    {
+      "case_id": "B4",
+      "group": "B",
+      "image_id": "svl_143496795",
+      "focus": "arsitektur-budaya",
+      "hard": [
+        "Stupa Borobudur berbentuk lonceng.",
+        "Menara Prambanan berujung runcing."
+      ],
+      "control": [
+        "Foto stupa candi.",
+        "Foto para penari."
+      ]
+    },
+    {
+      "case_id": "B5",
+      "group": "B",
+      "image_id": "svl_144425377",
+      "focus": "arsitektur-budaya",
+      "hard": [
+        "Menara Prambanan berujung runcing.",
+        "Stupa Borobudur berbentuk lonceng."
+      ],
+      "control": [
+        "Foto menara candi.",
+        "Foto sepiring bakmi."
+      ]
+    }
+  ]
+}

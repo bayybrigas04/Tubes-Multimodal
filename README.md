@@ -13,7 +13,7 @@ Data berasal dari **SEA-VL Indonesian subset** (`KORIKA-AI/sea-vl_crowdsourcing_
 | **M0 — Proposal dan reproduksi baseline** | Proposal, angka InfoNCE/Recall@1 dari lembar kerja, pembagian peran, dan pernyataan integritas. | **Artefak tersedia:** [`reports/M0_Proposal_T03.pdf`](reports/M0_Proposal_T03.pdf) dan [`M0_Pernyataan Integritas_T03.pdf`](M0_Pernyataan%20Integritas_T03.pdf). Proposal mencatat demonstrasi sintetis enam pasangan: InfoNCE 10,6138 → 0,1618 dan Recall@1 1/6 → 6/6. Angka ini **bukan** metrik retrieval SEA-VL. Proposal merencanakan penggantian encoder dan proyeksi kecil untuk M2. |
 | **M1 — Baseline pencarian lintas modal** | Pipeline gambar–teks, Recall@1/5/10 dan mAP@K untuk empat arah pada validasi, serta 10 contoh query Indonesia termasuk kegagalan. | **Kode tersedia:** [`src/M1_Baseline.py`](src/M1_Baseline.py) dan [`notebooks/m1_baseline.ipynb`](notebooks/m1_baseline.ipynb). Output eksekusi M1 tersimpan di `Q:\Tubes_Multimodal\K03_Notebook.ipynb` **di luar repo**; notebook M1 dalam repo belum menyimpan output sel. Ringkasan angka dan contoh ada di bawah. Tidak ada alasan untuk menyunting hasil M1 hanya karena contoh gagal. |
 | **M2 — Strategi penyejajaran/fusi** | Bandingkan sedikitnya dua varian dengan baseline M1 dan laporkan ablation serta biaya komputasi. | **Hasil utama tersedia secara lokal, di luar repo**, pada `Q:\Tubes_Multimodal\m2_perbandingan.ipynb`. Repo ini menyimpan [notebook audit kebocoran M2](notebooks/m2_audit_leakage.ipynb) dan [hasil auditnya](results/m2_audit/), bukan notebook maupun tabel hasil utama M2. Ringkasan keduanya ada di bawah. |
-| **M3 — Kasus sulit dan etika** | Uji kasus sulit, analisis keterbatasan, etika, dan atribusi. | **Belum ditemukan artefak M3 khusus.** Atribusi dataset sudah tersedia di [`ATTRIBUTION.md`](ATTRIBUTION.md). |
+| **M3 — Kasus sulit dan etika** | Uji kasus sulit, analisis keterbatasan, etika, dan atribusi. | **Eksperimen validasi tersedia secara lokal:** [notebook uji](src/uji_kasus_sulit.ipynb), [hasil tiga seed dan draf analisis/etika](results/m3/). Lima kasus utama (A), lima tambahan (B), dan kontrol diuji pada seed 42, 123, dan 456. **Belum ada laporan PDF final.** Notebook saat ini memiliki ketidaksesuaian pemeriksaan seed yang perlu diperbaiki sebelum dijalankan ulang; draf di repo belum memuat bagian atribusi tersendiri. |
 | **M4 — Protokol dan test privat** | Protokol evaluasi serta satu pengajuan prediksi test privat sesuai petunjuk dosen. | **Belum ditemukan artefak M4 atau test privat.** Jangan menebak/merekonstruksi test set yang belum dibuka. |
 
 
@@ -94,5 +94,53 @@ Pada arah ID→G, SigLIP 2 tanpa proyeksi meningkatkan R@1 sebesar **0,3018** da
 R@1 pada val penuh untuk **tiga encoder tanpa proyeksi** cocok dengan notebook utama. Untuk varian proyeksi, audit menguji **10 seed** pada tiga kondisi filter dan hanya menyimpan R@1, sedangkan notebook utama melaporkan **3 seed** serta Recall@5/10 dan mAP@10. Sebagai contoh, dengan filter caption, R@1 ID→G di audit adalah **0,2749 ± 0,0149** (baseline + proyeksi) dan **0,5629 ± 0,0063** (SigLIP 2 + proyeksi); perbedaannya dari tabel utama tidak boleh ditafsirkan sebagai hasil mAP@10 yang bertentangan.
 
 **Batas interpretasi:** evaluasi “val bersih” membuang 13 baris dari **kueri sekaligus galeri**, sehingga perbandingannya dengan 275 kandidat pada val penuh tidak mengisolasi pengaruh kebocoran. Uji antar-kondisi dalam [`audit_uji_seed.csv`](results/m2_audit/audit_uji_seed.csv) memakai Welch meskipun kondisi menggunakan seed yang sama; nilai *p* tersebut perlu ditinjau sebelum dijadikan bukti signifikansi. Audit tidak memeriksa kemungkinan kontaminasi data saat pra-latih encoder.
+
+## M3: uji kasus sulit dan etika
+
+Uji M3 memakai sepuluh gambar dari `val.csv`: [lima kasus utama A dan lima tambahan B](results/m3/draf_hasil_analisis_etika_m3.md). Setiap gambar dibandingkan dengan dua teks yang mirip tetapi berbeda negasi, atribut, relasi spasial, benda, atau ciri arsitektur; ada pula pasangan kontrol yang lebih kontras. Skor kandidat dinormalisasi dengan *softmax* bertemperatur 0,07 **di dalam masing-masing pasangan dua teks**. Angkanya adalah probabilitas relatif terhadap pengecoh yang dipilih, **bukan** keyakinan terkalibrasi atau metrik retrieval pada seluruh galeri.
+
+| Seed proyeksi | Hasil lengkap | Kasus utama A | Kasus tambahan B | Kontrol A dan B |
+| ---: | --- | ---: | ---: | ---: |
+| 42 | [`hasil_kandidat.csv` dan `metadata.json`](results/m3/m3_seed42_20261125T122156Z_464e7b8e/) | 5/5 | 5/5 | 10/10 |
+| 123 | [`hasil_kandidat.csv` dan `metadata.json`](results/m3/m3_seed123_20261125T123801Z_72c5b540/) | 5/5 | 5/5 | 10/10 |
+| 456 | [`hasil_kandidat.csv` dan `metadata.json`](results/m3/m3_seed456_20261125T123801Z_e9899fa4/) | 5/5 | 5/5 | 10/10 |
+
+Tiap folder berisi 40 baris kandidat (10 gambar × 2 jenis pasangan × 2 teks), identitas checkpoint dan hash input di `metadata.json`. Tabel berikut menampilkan **kedua kandidat** pada tiap pasangan: `S/P` = probabilitas relatif teks **sesuai/pengecoh**, dalam persen, dibulatkan dua desimal. Semua pasangan berstatus lolos pada ketiga seed; skor kosinus tanpa pembulatan ada di CSV. Kelompok **A** adalah lima gambar utama TOR, sedangkan **B** adalah lima gambar tambahan.
+
+### Pasangan sulit: relasi, negasi, atribut, dan penanda budaya
+
+| Kasus · fokus | `image_id` | Teks sesuai (S) | Teks pengecoh (P) | Seed 42 S/P (%) | Seed 123 S/P (%) | Seed 456 S/P (%) |
+| --- | --- | --- | --- | ---: | ---: | ---: |
+| A1 · negasi | `svl_142112996` | Tiang bendera tanpa bendera. | Tiang bendera dengan bendera. | 60,06/39,94 | 57,96/42,04 | 59,81/40,19 |
+| A2 · pose | `svl_140084661` | Tiga penari berbaju kuning duduk. | Tiga penari berbaju kuning berdiri. | 59,93/40,07 | 61,24/38,76 | 61,35/38,65 |
+| A3 · warna | `svl_140084668` | Penari berbaju putih berdiri. | Penari berbaju kuning berdiri. | 62,20/37,80 | 62,70/37,30 | 65,30/34,70 |
+| A4 · spasial | `svl_141004074` | Pedang di kiri foto, perisai di kanan foto. | Pedang di kanan foto, perisai di kiri foto. | 53,08/46,92 | 52,76/47,24 | 54,11/45,89 |
+| A5 · benda budaya | `svl_140084373` | Kemeja batik di atas meja. | Taplak batik menutupi meja. | 76,94/23,06 | 74,12/25,88 | 75,24/24,76 |
+| B1 · alat makan | `svl_140084155` | Bakmi di piring dengan sumpit hitam. | Bakmi di piring dengan sendok hijau. | 58,90/41,10 | 62,03/37,97 | 60,21/39,79 |
+| B2 · alat makan | `svl_140084156` | Bakmi di piring dengan sendok hijau. | Bakmi di piring dengan sumpit hitam. | 57,94/42,06 | 58,01/41,99 | 59,88/40,12 |
+| B3 · benda tarian | `svl_140084408` | Tiga penari mengangkat selendang jingga. | Tiga penari mengangkat payung jingga. | 58,93/41,07 | 60,50/39,50 | 56,65/43,35 |
+| B4 · arsitektur budaya | `svl_143496795` | Stupa Borobudur berbentuk lonceng. | Menara Prambanan berujung runcing. | 87,04/12,96 | 83,69/16,31 | 82,62/17,38 |
+| B5 · arsitektur budaya | `svl_144425377` | Menara Prambanan berujung runcing. | Stupa Borobudur berbentuk lonceng. | 62,76/37,24 | 65,46/34,54 | 79,01/20,99 |
+
+### Pasangan kontrol: pengenalan objek yang lebih kontras
+
+Kontrol memakai **gambar yang sama** dengan kasus sulit pada baris ber-ID sama. Angka tetap dinormalisasi hanya terhadap dua teks kontrol di baris tersebut; jangan bandingkan persentasenya lintas pasangan sebagai ukuran keyakinan terkalibrasi.
+
+| Kasus | Teks sesuai (S) | Teks pengecoh (P) | Seed 42 S/P (%) | Seed 123 S/P (%) | Seed 456 S/P (%) |
+| --- | --- | --- | ---: | ---: | ---: |
+| A1 | Foto tiang bendera. | Foto menara candi. | 80,65/19,35 | 80,85/19,15 | 84,57/15,43 |
+| A2 | Foto para penari. | Foto stupa candi. | 87,10/12,90 | 86,17/13,83 | 91,18/8,82 |
+| A3 | Foto para penari. | Foto stupa candi. | 96,98/3,02 | 97,31/2,69 | 97,86/2,14 |
+| A4 | Foto para penari. | Foto stupa candi. | 93,32/6,68 | 93,01/6,99 | 95,68/4,32 |
+| A5 | Foto kemeja batik. | Foto menara candi. | 98,87/1,13 | 98,98/1,02 | 99,16/0,84 |
+| B1 | Foto sepiring bakmi. | Foto stupa candi. | 98,53/1,47 | 98,79/1,21 | 99,06/0,94 |
+| B2 | Foto sepiring bakmi. | Foto stupa candi. | 95,70/4,30 | 96,91/3,09 | 97,74/2,26 |
+| B3 | Foto para penari. | Foto stupa candi. | 92,55/7,45 | 90,37/9,63 | 93,79/6,21 |
+| B4 | Foto stupa candi. | Foto para penari. | 98,27/1,73 | 98,27/1,73 | 97,45/2,55 |
+| B5 | Foto menara candi. | Foto sepiring bakmi. | 99,74/0,26 | 99,69/0,31 | 99,60/0,40 |
+
+Pada kasus spasial **A4**, probabilitas relatif teks sesuai hanya **53,08% / 52,76% / 54,11%** untuk seed 42/123/456: pilihan benar, tetapi selisihnya kecil. Karena kasus sulit dan kontrol sama-sama lolos serta menggunakan pasangan pengecoh dengan tingkat kontras berbeda, hasil ini **tidak membuktikan** bahwa sistem secara umum lebih mudah menangani objek tunggal daripada relasi, apalagi memahami budaya. Sepuluh gambar yang sama pada tiga seed juga bukan tiga sampel independen. Analisis *dual-encoder* dan bahan pernyataan etika ada di [draf M3](results/m3/draf_hasil_analisis_etika_m3.md).
+
+**Reproduksi dan status pengumpulan:** [notebook M3](src/uji_kasus_sulit.ipynb) memerlukan bundel data dan checkpoint proyeksi M2 seed 42/123/456 di Google Drive; keduanya **tidak disertakan dalam repo**. Metadata hasil mencatat hash checkpoint untuk pemeriksaan asal, bukan menyediakan bobotnya. Versi notebook di repo belum dapat dijalankan ulang apa adanya: `SEEDS` berisi ketiga seed, tetapi fungsi `periksa_berkas_awal` hanya menerima seed 123/456. Hasil CSV yang sudah ada tetap merupakan hasil eksperimen yang tersimpan, bukan output yang dibuat ulang dari notebook dalam repo saat ini. Draf yang tersedia **belum** merupakan laporan pengumpulan: bagian atribusi perlu dipastikan masuk laporan akhir (lihat [`ATTRIBUTION.md`](ATTRIBUTION.md)), pernyataan etika harus diperiksa agar maksimal satu halaman, dan PDF serta kode uji disiapkan sesuai petunjuk M3.
 
 
